@@ -2,14 +2,18 @@
 # twhitak@its.jnj.com
 
 CC = clang
-CFLAGS = -O2
-SOURCE = src/*.c
+CFLAGS =
 INCLUDE = -I./include
-OUT = -o
 EXECUTABLE = csvparse
 
-all:
-	$(CC) $(CFLAGS) $(INCLUDE) $(OUT) $(EXECUTABLE) $(SOURCE)
+all: csvparse.o fileIO.o
+	$(CC) $(CFLAGS) $(INCLUDE) -o $(EXECUTABLE) csvparse.o fileIO.o src/main.c
+
+csvparse.o:
+	$(CC) -c $(CFLAGS) $(INCLUDE) src/csvparse.c
+
+fileIO.o:
+	$(CC) -c $(CFLAGS) $(INCLUDE) src/fileIO.c
 
 install:
 	cp $(EXECUTABLE) /usr/local/bin
@@ -18,4 +22,5 @@ uninstall:
 	rm -f /usr/local/bin/$(EXECUTABLE)
 
 clean:
+	rm -f *.o
 	rm -f $(EXECUTABLE)

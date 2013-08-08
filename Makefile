@@ -1,15 +1,15 @@
-# Travis Whitaker 2012
+# Travis Whitaker 2013
 # twhitak@its.jnj.com
 
 CC = clang
 CFLAGS =
 INCLUDE = -I./include
-EXECUTABLE = csvparse
+EXECUTABLE = csvgen
 
-all: csvparse.o fileIO.o
+all: csvgen.o fileIO.o
 	$(CC) $(CFLAGS) $(INCLUDE) -o $(EXECUTABLE) csvparse.o fileIO.o src/main.c
 
-csvparse.o:
+csvgen.o:
 	$(CC) -c $(CFLAGS) $(INCLUDE) src/csvparse.c
 
 fileIO.o:

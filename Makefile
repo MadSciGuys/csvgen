@@ -6,14 +6,11 @@ CFLAGS =
 INCLUDE = -I./include
 EXECUTABLE = csvgen
 
-all: csvgen.o fileIO.o
-	$(CC) $(CFLAGS) $(INCLUDE) -o $(EXECUTABLE) csvparse.o fileIO.o src/main.c
+all: csvgen.o
+	$(CC) $(CFLAGS) $(INCLUDE) -o $(EXECUTABLE) csvgen.o src/main.c
 
 csvgen.o:
-	$(CC) -c $(CFLAGS) $(INCLUDE) src/csvparse.c
-
-fileIO.o:
-	$(CC) -c $(CFLAGS) $(INCLUDE) src/fileIO.c
+	$(CC) -c $(CFLAGS) $(INCLUDE) src/csvgen.c
 
 install:
 	cp $(EXECUTABLE) /usr/local/bin

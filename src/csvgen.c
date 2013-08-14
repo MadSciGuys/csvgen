@@ -73,6 +73,8 @@ void parseCSV(FILE *inputfile, FILE *outputfile)
 		case ',':
 			fputc(';',outputfile);
 			break;
+		case '&':
+			fprintf(outputfile,"&amp;");
 		default:
 			fputc(cursor,outputfile);
 			break;

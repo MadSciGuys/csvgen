@@ -1,17 +1,23 @@
 #ifndef CSVGEN
 #define CSVGEN
 
+// Maximum file name length:
 #define MAXFILENAME 256
 
+// Extension for output files:
 #define CSVEXT ".csv"
 #define CSVEXTLEN 5
 
+// Define the record separators for input and output files:
 #define INPUT_RECORD_SEPARATOR 0x1E
 #define OUTPUT_RECORD_SEPARATOR ','
 
+// Define the group(row) separators for input and output files:
 #define INPUT_GROUP_SEPARATOR 0x1D
 #define OUTPUT_GROUP_SEPARATOR '\n'
 
+// Define replacements and/or escape sequences to be used
+// for XML reserved characters:
 #define OPEN_ANGLE_REPLACE '{'
 #define CLOSE_ANGLE_REPLACE '}'
 #define OUTPUT_RECORD_SEPARATOR_REPLACE ';'

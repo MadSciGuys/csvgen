@@ -9,22 +9,25 @@
 
 int main(int argc,char *argv[])
 {
+	//Pointers for file access:
 	FILE *inputfile;
 	FILE *outputfile;
 
-	char *inputfilename = malloc(256);
+	//Allocate memory for file names:
+	char *inputfilename = malloc(MAXFILENAME);
 	if(inputfilename == NULL)
 	{
 		printf("Couldn't allocate memory for *inputfilename\nFATAL ERROR\n");
 		return 0;
 	}
-	char *outputfilename = malloc(256);
+	char *outputfilename = malloc(MAXFILENAME);
 	if(outputfilename == NULL)
 	{
 		printf("Couldn't allocate memory for *outputfilename\nFATAL ERROR\n");
 		return 0;
 	}
 
+	//Ensure that there is one and only one argument:
 	if(argv[1] == NULL)
 	{
 		printf("Too few arguments\nUsage: csvgen filename\n");
@@ -36,10 +39,12 @@ int main(int argc,char *argv[])
 		return 0;
 	}
 
-	strncpy(inputfilename,argv[1],255);
-	*(inputfilename+255) = '\0';
+	//Copy the argument to *inputfile and compute the output filename:
+	strncpy(inputfilename,argv[1],(MAXFILENAME-1));
+	*(inputfilename+(MAXFILENAME-1)) = '\0';
 	outputFilename(inputfilename,outputfilename);
 
+	//Open the files:
 	inputfile = fopen(inputfilename,"r");
 	if(inputfile == NULL)
 	{
@@ -55,8 +60,10 @@ int main(int argc,char *argv[])
 	}
 	free(outputfilename);
 
+	//Generate the true CSV file:
 	parseCSV(inputfile,outputfile);
 
+	//Close the files:
 	fclose(inputfile);
 	fclose(outputfile);
 	return 0;

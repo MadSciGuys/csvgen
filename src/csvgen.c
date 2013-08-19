@@ -1,12 +1,16 @@
+// Travis Whitaker 2013
+// twhitak@its.jnj.com
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include <csvgen.h>
 
+//This function computes the output filename:
 void outputFilename(char *inputfilename, char *outputfilename)
 {
-	for(unsigned register int i=0;i<251;i++)
+	for(unsigned register int i=0;i<(MAXFILENAME-CSVEXTLEN);i++)
 	{
 		if(*(inputfilename+i) == '\0')
 		{
@@ -17,8 +21,8 @@ void outputFilename(char *inputfilename, char *outputfilename)
 			switch(*(inputfilename+i))
 			{
 			case '.':
-				strncpy(outputfilename+i,".csv",5);
-				*(outputfilename+255) = '\0';
+				strncpy(outputfilename+i,CSVEXT,CSVEXTLEN);
+				*(outputfilename+(MAXFILENAME-1)) = '\0';
 				return;
 				break;
 			default:
@@ -30,6 +34,9 @@ void outputFilename(char *inputfilename, char *outputfilename)
 	return;
 }
 
+//This function generates the true CSV file based on the Informatica-sourced
+//CSV-like file, replacing the weird delimiters and escaping or replacing all
+//XML-reserved characters:
 void parseCSV(FILE *inputfile, FILE *outputfile)
 {
 	char cursor;
@@ -39,10 +46,10 @@ void parseCSV(FILE *inputfile, FILE *outputfile)
 		switch(cursor)
 		{
 		case '#':
-		case 0x0D:
+		case '\r':
 			break;
-		case 0x1E:
-			fputc(',',outputfile);
+		case INPUT_RECORD_SEPARATOR:
+			fputc(OUTPUT_RECORD_SEPARATOR,outputfile);
 			break;
 		default:
 			fputc(cursor,outputfile);
@@ -54,30 +61,30 @@ void parseCSV(FILE *inputfile, FILE *outputfile)
 		cursor = fgetc(inputfile);
 		switch(cursor)
 		{
-		case 0x0D:
+		case '\r':
 		case '\n':
 		case EOF:
 			break;
-		case 0x1E:
-			fputc(',',outputfile);
+		case INPUT_RECORD_SEPARATOR:
+			fputc(OUTPUT_RECORD_SEPARATOR,outputfile);
 			break;
-		case 0x1D:
-			fputc('\n',outputfile);
+		case INPUT_GROUP_SEPARATOR:
+			fputc(OUTPUT_GROUP_SEPARATOR,outputfile);
 			break;
 		case '<':
-			fputc('{',outputfile);
+			fputc(OPEN_ANGLE_REPLACE,outputfile);
 			break;
 		case '>':
-			fputc('}',outputfile);
+			fputc(CLOSE_ANGLE_REPLACE,outputfile);
 			break;
 		case ',':
-			fputc(';',outputfile);
+			fputc(OUTPUT_RECORD_SEPARATOR_REPLACE,outputfile);
 			break;
 		case '&':
-			fprintf(outputfile,"&amp;");
+			fprintf(outputfile,AMP_ESCAPE);
 			break;
 		case '%':
-			fprintf(outputfile,"&#37;");
+			fprintf(outputfile,PERCENT_ESCAPE);
 			break;
 		default:
 			fputc(cursor,outputfile);

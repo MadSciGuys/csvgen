@@ -9,11 +9,11 @@
 #define CSVEXTLEN 5
 
 // Define the record separators for input and output files:
-#define INPUT_RECORD_SEPARATOR 0x1E
+#define INPUT_RECORD_SEPARATOR 0x1F
 #define OUTPUT_RECORD_SEPARATOR ','
 
 // Define the group(row) separators for input and output files:
-#define INPUT_GROUP_SEPARATOR 0x1D
+#define INPUT_GROUP_SEPARATOR 0x1E
 #define OUTPUT_GROUP_SEPARATOR '\n'
 
 // Define replacements and/or escape sequences to be used

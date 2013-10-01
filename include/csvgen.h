@@ -18,8 +18,10 @@
 
 // Define replacements and/or escape sequences to be used
 // for XML reserved characters:
-#define OPEN_ANGLE_REPLACE '{'
-#define CLOSE_ANGLE_REPLACE '}'
+#define OPEN_ANGLE_REPLACE "&gt;"
+#define CLOSE_ANGLE_REPLACE "&lt;"
+#define QUOTE_REPLACE "&quot;"
+#define APOS_REPLACE "&apos;"
 #define OUTPUT_RECORD_SEPARATOR_REPLACE ';'
 #define AMP_ESCAPE "&amp;"
 #define PERCENT_ESCAPE "&#37;"

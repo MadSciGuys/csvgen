@@ -72,10 +72,10 @@ void parseCSV(FILE *inputfile, FILE *outputfile)
 			fputc(OUTPUT_GROUP_SEPARATOR,outputfile);
 			break;
 		case '<':
-			fputc(OPEN_ANGLE_REPLACE,outputfile);
+			fprintf(outputfile,OPEN_ANGLE_REPLACE);
 			break;
 		case '>':
-			fputc(CLOSE_ANGLE_REPLACE,outputfile);
+			fprintf(outputfile,CLOSE_ANGLE_REPLACE);
 			break;
 		case ',':
 			fputc(OUTPUT_RECORD_SEPARATOR_REPLACE,outputfile);
@@ -85,6 +85,12 @@ void parseCSV(FILE *inputfile, FILE *outputfile)
 			break;
 		case '%':
 			fprintf(outputfile,PERCENT_ESCAPE);
+			break;
+		case '"':
+			fprintf(outputfile,QUOTE_REPLACE);
+			break;
+		case '\'':
+			fprintf(outputfile,APOS_REPLACE);
 			break;
 		default:
 			fputc(cursor,outputfile);

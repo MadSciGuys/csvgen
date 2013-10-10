@@ -21,6 +21,7 @@ uninstall:
 clean:
 	rm -f *.o
 	rm -f $(EXECUTABLE)
+	rm -f debug-csvgen
 
 debug: csvgen.o.debug
 	$(CC) -O0 -g $(INCLUDE) -o debug-csvgen csvgen.o src/main.c

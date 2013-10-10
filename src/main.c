@@ -18,12 +18,15 @@ int main(int argc,char *argv[])
 	if(inputfilename == NULL)
 	{
 		printf("Couldn't allocate memory for *inputfilename\nFATAL ERROR\n");
+		free(inputfilename);
 		return 0;
 	}
 	char *outputfilename = malloc(MAXFILENAME);
 	if(outputfilename == NULL)
 	{
 		printf("Couldn't allocate memory for *outputfilename\nFATAL ERROR\n");
+		free(inputfilename);
+		free(outputfilename);
 		return 0;
 	}
 
@@ -31,11 +34,15 @@ int main(int argc,char *argv[])
 	if(argv[1] == NULL)
 	{
 		printf("Too few arguments\nUsage: csvgen filename\n");
+		free(inputfilename);
+		free(outputfilename);
 		return 0;
 	}
 	if(argv[2] != NULL)
 	{
 		printf("Too many arguments\nUsage: csvgen filename\n");
+		free(inputfilename);
+		free(outputfilename);
 		return 0;
 	}
 
@@ -49,6 +56,8 @@ int main(int argc,char *argv[])
 	if(inputfile == NULL)
 	{
 		printf("Couldn't open %s\nFATAL ERROR\n",inputfilename);
+		free(inputfilename);
+		free(outputfilename);
 		return 0;
 	}
 	free(inputfilename);
@@ -56,6 +65,8 @@ int main(int argc,char *argv[])
 	if(outputfile == NULL)
 	{
 		printf("Couldn't open %s\nFATAL ERROR\n",outputfilename);
+		free(inputfilename);
+		free(outputfilename);
 		return 0;
 	}
 	free(outputfilename);

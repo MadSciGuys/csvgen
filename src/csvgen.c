@@ -1,4 +1,4 @@
-// Travis Whitaker 2013
+// Travis Whitaker 2013-2015
 // twhitak@its.jnj.com
 
 #include <stdio.h>
@@ -34,9 +34,9 @@ void outputFilename(char *inputfilename, char *outputfilename)
 	return;
 }
 
-//This function generates the true CSV file based on the Informatica-sourced
-//CSV-like file, replacing the weird delimiters and escaping or replacing all
-//XML-reserved characters:
+//This function generates the true CSV file based on the CSV-like file,
+//replacing the weird delimiters and escaping or replacing all XML-reserved
+//characters:
 void parseCSV(FILE *inputfile, FILE *outputfile)
 {
 	char cursor;
